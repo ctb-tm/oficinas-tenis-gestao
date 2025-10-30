@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório Técnico Mensal – Oficinas de Tênis Salvador</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- ===== MENU SUPERIOR ===== -->
+  <nav class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+      <h1 class="text-lg font-semibold">CTB – Relatórios</h1>
+      <div class="space-x-3">
+        <a href="index.html" class="px-3 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition">Início</a>
+        <a href="financeiro.html" class="px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 transition">Financeiro</a>
+      </div>
+    </div>
+  </nav>
+  <!-- ===== FIM MENU ===== -->
+
+  <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-8 my-10">
+    <h1 class="text-3xl font-bold text-center mb-6">
+      Relatório Técnico Mensal – Oficinas Educacionais de Tênis
+    </h1>
+    <p class="text-center text-sm mb-8">
+      Período: 01/11/2025 a 31/10/2026<br>
+      Proponente: Clube dos Tenistas da Bahia | CNPJ: 23.146.328/0001-16
+    </p>
+
+    <!-- 1. Execução Física -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">1. Execução Física</h2>
+      <table class="w-full text-sm border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-2 border">Núcleo</th>
+            <th class="p-2 border">Atividades Realizadas</th>
+            <th class="p-2 border">Meta Física (%)</th>
+            <th class="p-2 border">Execução (%)</th>
+            <th class="p-2 border">Observações</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaExecucao"></tbody>
+      </table>
+    </section>
+
+    <!-- 2. Execução Financeira -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">2. Execução Financeira</h2>
+      <table class="w-full text-sm border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-2 border">Categoria</th>
+            <th class="p-2 border">Orçado (R$)</th>
+            <th class="p-2 border">Executado (R$)</th>
+            <th class="p-2 border">Saldo (R$)</th>
+            <th class="p-2 border">Execução (%)</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaFinanceira"></tbody>
+      </table>
+    </section>
+
+    <!-- 3. Checklist Documental -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">3. Checklist Documental</h2>
+      <div id="checklist" class="grid grid-cols-2 gap-2 text-sm"></div>
+    </section>
+
+    <!-- 4. Observações -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">4. Observações dos Profissionais</h2>
+      <div id="observacoes"></div>
+    </section>
+
+    <!-- 5. Gráfico -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">5. Gráfico Execução Física x Financeira</h2>
+      <canvas id="grafico"></canvas>
+    </section>
+
+    <!-- 6. Assinaturas -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold mb-3">6. Assinaturas</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <p>Coordenador Técnico – Paulo Santos Carneiro</p>
+          <div class="border-t border-gray-600 mt-6"></div>
+        </div>
+        <div>
+          <p>Assistente Administrativo – ____________________</p>
+          <div class="border-t border-gray-600 mt-6"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
