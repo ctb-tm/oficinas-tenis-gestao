@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financeiro - Oficinas Educacionais de Tênis</title>
+    <title>Financeiro - Itens - Oficinas de Tênis</title>
     
     <style>
         body {
@@ -16,7 +16,7 @@
             color: #333;
         }
         .container {
-            max-width: 95%; /* Aumentei para acomodar a tabela larga */
+            max-width: 95%; /* 95% para dar espaço à tabela larga */
             margin: auto;
             background: white;
             padding: 20px;
@@ -24,24 +24,86 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Estilos da Tabela Padrão (Resumo) */
-        table {
+        /* Estilos do Menu de Navegação */
+        .nav-menu {
+            overflow: hidden;
+            border-bottom: 2px solid #0066cc;
+            margin-bottom: 20px;
+        }
+        .nav-link {
+            background-color: #f1f1f1;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+            color: #333;
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            background-color: #ddd;
+        }
+        .nav-link.active {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        /* Estilos da Tabela Mensal */
+        .monthly-table-wrapper {
+            overflow-x: auto; /* Permite rolagem horizontal */
+        }
+        .monthly-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
-        th, td {
+        .monthly-table th, .monthly-table td {
             border: 1px solid #ccc;
             padding: 10px;
             text-align: center;
+            min-width: 150px; /* Largura mínima para colunas de mês */
         }
-        th {
+        .monthly-table th {
             background-color: #0066cc;
             color: white;
-            white-space: nowrap; /* Evita quebra de linha nos cabeçalhos */
+            white-space: nowrap;
         }
-        tr:nth-child(even) {
+        .monthly-table tr:nth-child(even) {
             background-color: #f9f9f9;
+        }
+
+        /* Colunas "Grudadas" (Sticky) */
+        .monthly-table td:first-child,
+        .monthly-table td:nth-child(2),
+        .monthly-table th:first-child,
+        .monthly-table th:nth-child(2) {
+            position: sticky;
+            left: 0;
+            background-color: #f9f9f9; /* Fundo para destacar */
+            z-index: 1;
+        }
+        .monthly-table td:first-child,
+        .monthly-table th:first-child {
+            left: 0;
+            min-width: 250px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .monthly-table th:nth-child(2),
+        .monthly-table td:nth-child(2) {
+            left: 250px; /* Largura da primeira coluna */
+            min-width: 160px;
+        }
+        
+        /* Célula de Mês */
+        .orcado-mes span {
+            font-size: 0.9em;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
         }
         input[type='number'] {
             width: 110px;
@@ -49,6 +111,8 @@
             padding: 5px;
             box-sizing: border-box; 
         }
+
+        /* Barra de Gráfico */
         .grafico-barra {
             height: 20px;
             background-color: #28a745;
@@ -61,72 +125,8 @@
             box-sizing: border-box;
             transition: width 0.3s ease-in-out;
             font-size: 0.9em;
-            line-height: 20px; /* Alinha o texto verticalmente */
+            line-height: 20px;
         }
-
-        /* Estilos das Abas */
-        .tabs {
-            overflow: hidden;
-            border-bottom: 2px solid #0066cc;
-            margin-bottom: 20px;
-        }
-        .tab-link {
-            background-color: #f1f1f1;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 17px;
-            border-radius: 5px 5px 0 0;
-            transition: background-color 0.3s;
-        }
-        .tab-link:hover {
-            background-color: #ddd;
-        }
-        .tab-link.active {
-            background-color: #0066cc;
-            color: white;
-        }
-        .tab-content {
-            display: none;
-            padding: 10px 0;
-        }
-
-        /* Estilos da Tabela Mensal */
-        .monthly-table-wrapper {
-            overflow-x: auto; /* Permite rolagem horizontal */
-        }
-        .monthly-table th, .monthly-table td {
-            min-width: 150px; /* Largura mínima para colunas de mês */
-        }
-        .monthly-table td:first-child, /* Célula do Item */
-        .monthly-table td:nth-child(2), /* Célula Total Orçado */
-        .monthly-table th:first-child,
-        .monthly-table th:nth-child(2) {
-            position: sticky; /* "Gruda" as primeiras colunas à esquerda */
-            left: 0;
-            background-color: #f9f9f9; /* Fundo para destacar */
-            z-index: 1;
-        }
-        .monthly-table td:first-child,
-        .monthly-table th:first-child {
-            left: 0;
-            min-width: 250px; /* Mais espaço para o nome do item */
-            text-align: left;
-        }
-        .monthly-table th:nth-child(2),
-        .monthly-table td:nth-child(2) {
-            left: 250px; /* Posição da segunda coluna "grudada" */
-        }
-
-        .orcado-mes span {
-            font-size: 0.9em;
-            color: #555;
-            display: block;
-            margin-bottom: 5px;
-        }
-
     </style>
 </head>
 <body>
@@ -134,106 +134,12 @@
     <div class="container">
         <h1>Controle Financeiro - Oficinas Educacionais de Tênis</h1>
         
-        <div class="tabs">
-            <button class="tab-link active" onclick="openTab(event, 'resumo')">Resumo Orçamentário</button>
-            <button class="tab-link" onclick="openTab(event, 'itens')">Controle Mensal por Item</button>
+        <div class="nav-menu">
+            <a href="financeiro.html" class="nav-link">Resumo Orçamentário</a>
+            <a href="itens.html" class="nav-link active">Controle Mensal por Item</a>
         </div>
 
-        <div id="resumo" class="tab-content" style="display:block;">
-            <h2>Resumo Orçamentário (Total)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">Ação</th>
-                        <th>Valor Orçado (R$)</th>
-                        <th>Executado (R$)</th>
-                        <th>Saldo (R$)</th>
-                        <th>% Executado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: left;">Material de Consumo / Esportivo</td>
-                        <td class="orcado" data-valor="367075.00">R$ 367.075,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Uniformes</td>
-                        <td class="orcado" data-valor="121494.60">R$ 121.494,60</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Material Permanente / Equipamento</td>
-                        <td class="orcado" data-valor="8052.96">R$ 8.052,96</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Recursos Humanos</td>
-                        <td class="orcado" data-valor="158400.00">R$ 158.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Encargos Trabalhistas</td>
-                        <td class="orcado" data-valor="107712.00">R$ 107.712,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Hospedagem / Alimentação</td>
-                        <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Transporte / Locomoção</td>
-                        <td class="orcado" data-valor="100000.00">R$ 100.000,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Locação de Espaços</td>
-                        <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Serviços Operacionais</td>
-                        <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Serviços de Terceiros</td>
-                        <td class="orcado" data-valor="146400.00">R$ 146.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Divulgação / Promoção</td>
-                        <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="itens" class="tab-content">
+        <div>
             <h2>Controle Mensal por Item (Novembro/2025 - Outubro/2026)</h2>
             <div class="monthly-table-wrapper">
                 <table class="monthly-table">
@@ -462,8 +368,8 @@
                         <tr class="item-row">
                             <td class="total-orcado" data-valor-total="20400.00">Divulgação / Promoção</td>
                             <td>R$ 20.400,00</td>
-                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
                             <td><div class="orcado-mes"><span>Orçado: R$ 20.400,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
                             <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
                             <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
                             <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisItem(this)"></div></td>
@@ -483,56 +389,15 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <script>
         
         /**
          * Formata um número para o padrão de moeda BRL (R$).
-         * @param {number} value O número a ser formatado.
-         * @returns {string} O valor formatado como R$ 1.234,56.
          */
         function formatCurrency(value) {
             return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
-
-        /**
-         * Controla a exibição das abas.
-         */
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        /**
-         * Atualiza os cálculos da tabela de RESUMO.
-         */
-        function atualizarExecucaoResumo() {
-            const linhas = document.querySelectorAll('#resumo tbody tr');
-            linhas.forEach(linha => {
-                const orcado = parseFloat(linha.querySelector('.orcado').dataset.valor);
-                const executadoInput = linha.querySelector('.executado');
-                const executado = parseFloat(executadoInput.value) || 0;
-                const saldo = orcado - executado;
-                
-                linha.querySelector('.saldo').textContent = formatCurrency(saldo);
-                
-                const percentual = (orcado > 0) ? (executado / orcado) * 100 : 0;
-                
-                const barra = linha.querySelector('.grafico-barra');
-                barra.style.width = percentual.toFixed(1) + '%';
-                barra.textContent = percentual.toFixed(1) + '%';
-            });
         }
 
         /**
@@ -540,25 +405,21 @@
          * @param {HTMLElement} inputElement O input de mês que foi alterado.
          */
         function atualizarTotaisItem(inputElement) {
-            // Encontra a linha (tr) pai do input que foi mexido
-            const linha = inputElement.closest('tr');
-            
-            // Pega o valor total orçado da linha
+            const linha = inputElement.closest('tr.item-row');
+            if (!linha) return;
+
             const totalOrcadoElement = linha.querySelector('.total-orcado');
             const totalOrcado = parseFloat(totalOrcadoElement.dataset.valorTotal) || 0;
             
-            // Soma todos os inputs de "executado-mes" desta linha
             let totalExecutado = 0;
             const inputsMensais = linha.querySelectorAll('.executado-mes');
             inputsMensais.forEach(input => {
                 totalExecutado += parseFloat(input.value) || 0;
             });
             
-            // Calcula saldo e percentual
             const saldo = totalOrcado - totalExecutado;
             const percentual = (totalOrcado > 0) ? (totalExecutado / totalOrcado) * 100 : 0;
             
-            // Atualiza os campos de total da linha
             linha.querySelector('.total-executado-item').textContent = formatCurrency(totalExecutado);
             linha.querySelector('.saldo-item').textContent = formatCurrency(saldo);
             
@@ -571,13 +432,8 @@
          * Função principal que inicializa todos os cálculos da página.
          */
         function inicializarPagina() {
-            // Calcula a tabela de Resumo
-            atualizarExecucaoResumo();
-            
-            // Calcula todas as linhas da tabela de Itens Mensais
-            const linhasItens = document.querySelectorAll('#itens tbody tr.item-row');
+            const linhasItens = document.querySelectorAll('#itens tbody tr.item-row, .monthly-table tbody tr.item-row');
             linhasItens.forEach(linha => {
-                // Pega o primeiro input da linha apenas como referência para a função
                 const primeiroInput = linha.querySelector('.executado-mes');
                 if (primeiroInput) {
                     atualizarTotaisItem(primeiroInput);
