@@ -1,49 +1,205 @@
-Financeiro - Oficinas Educacionais de Tênis body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; } h1, h2 { text-align: center; color: #333; } table { width: 100%; border-collapse: collapse; margin-bottom: 30px; } th, td { border: 1px solid #ccc; padding: 10px; text-align: center; } th { background-color: #0066cc; color: white; } tr:nth-child(even) { background-color: #f9f9f9; } input[type='number'] { width: 100px; text-align: right; } .grafico-barra { height: 20px; background-color: #28a745; text-align: right; color: white; padding-right: 5px; border-radius: 5px; } .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); } function atualizarExecucao() { const linhas = document.querySelectorAll('tbody tr'); linhas.forEach(linha => { const orcado = parseFloat(linha.querySelector('.orcado').dataset.valor); const executadoInput = linha.querySelector('.executado'); const executado = parseFloat(executadoInput.value) || 0; const saldo = orcado - executado; linha.querySelector('.saldo').textContent = saldo.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); const percentual = (executado / orcado) * 100; const barra = linha.querySelector('.grafico-barra'); barra.style.width = percentual + '%'; barra.textContent = percentual.toFixed(1) + '%'; }); } 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financeiro - Oficinas Educacionais de Tênis</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
 
-Controle Financeiro - Oficinas Educacionais de Tênis
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
 
-Período: Novembro/2025 a Outubro/2026
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
 
-AçãoValor Orçado (R$)Executado (R$)Saldo (R$)% ExecutadoMaterial de Consumo / EsportivoR$367.075,00R$367.075,00
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
 
-0%
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
 
-UniformesR$121.494,60R$121.494,60
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-0%
+        input[type='number'] {
+            width: 100px;
+            text-align: right;
+            padding: 5px;
+            box-sizing: border-box; /* Garante que o padding não afete a largura */
+        }
 
-Material Permanente / EquipamentoR$8.052,96R$8.052,96
+        .grafico-barra {
+            height: 20px;
+            background-color: #28a745;
+            text-align: right;
+            color: white;
+            padding-right: 5px;
+            border-radius: 5px;
+            width: 0%; /* Inicia a barra com 0% */
+            min-width: 20px; /* Garante que o texto seja visível mesmo com 0% */
+            box-sizing: border-box;
+            transition: width 0.3s ease-in-out; /* Efeito suave na barra */
+        }
 
-0%
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
 
-Recursos HumanosR$158.400,00R$158.400,00
+    <div class="container">
+        <h1>Controle Financeiro - Oficinas Educacionais de Tênis</h1>
+        <h2>Período: Novembro/2025 a Outubro/2026</h2>
 
-0%
+        <table>
+            <thead>
+                <tr>
+                    <th>Ação</th>
+                    <th>Valor Orçado (R$)</th>
+                    <th>Executado (R$)</th>
+                    <th>Saldo (R$)</th>
+                    <th>% Executado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left;">Material de Consumo / Esportivo</td>
+                    <td class="orcado" data-valor="367075.00">R$ 367.075,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Uniformes</td>
+                    <td class="orcado" data-valor="121494.60">R$ 121.494,60</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Material Permanente / Equipamento</td>
+                    <td class="orcado" data-valor="8052.96">R$ 8.052,96</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Recursos Humanos</td>
+                    <td class="orcado" data-valor="158400.00">R$ 158.400,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Encargos Trabalhistas</td>
+                    <td class="orcado" data-valor="107712.00">R$ 107.712,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Hospedagem / Alimentação</td>
+                    <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Transporte / Locomoção</td>
+                    <td class="orcado" data-valor="100000.00">R$ 100.000,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Locação de Espaços</td>
+                    <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Serviços Operacionais</td>
+                    <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Serviços de Terceiros</td>
+                    <td class="orcado" data-valor="146400.00">R$ 146.400,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Divulgação / Promoção</td>
+                    <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
+                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
+                    <td class="saldo"></td>
+                    <td><div class="grafico-barra"></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-Encargos TrabalhistasR$107.712,00R$107.712,00
+    <script>
+        function atualizarExecucao() {
+            const linhas = document.querySelectorAll('tbody tr');
 
-0%
+            linhas.forEach(linha => {
+                // Pega o valor orçado (do data-valor) e converte para número
+                const orcado = parseFloat(linha.querySelector('.orcado').dataset.valor);
+                
+                // Pega o valor digitado no input
+                const executadoInput = linha.querySelector('.executado');
+                const executado = parseFloat(executadoInput.value) || 0;
+                
+                // Calcula o saldo
+                const saldo = orcado - executado;
+                
+                // Atualiza a célula do saldo, formatando para R$
+                linha.querySelector('.saldo').textContent = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                
+                // Calcula o percentual (com proteção contra divisão por zero)
+                const percentual = (orcado > 0) ? (executado / orcado) * 100 : 0;
+                
+                // Atualiza a barra de progresso
+                const barra = linha.querySelector('.grafico-barra');
+                barra.style.width = percentual + '%';
+                barra.textContent = percentual.toFixed(1) + '%';
+            });
+        }
 
-Hospedagem / AlimentaçãoR$26.100,00R$26.100,00
+        // Chama a função quando a página terminar de carregar
+        // Isso garante que os saldos iniciais (com R$ 0,00 executado) sejam calculados.
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarExecucao();
+        });
+    </script>
 
-0%
-
-Transporte / LocomoçãoR$100.000,00R$100.000,00
-
-0%
-
-Locação de EspaçosR$143.600,04R$143.600,04
-
-0%
-
-Serviços OperacionaisR$128.000,00R$128.000,00
-
-0%
-
-Serviços de TerceirosR$146.400,00R$146.400,00
-
-0%
-
-Divulgação / PromoçãoR$20.400,00R$20.400,00
-
-0%
+</body>
+</html>
