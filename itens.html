@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financeiro - Resumo - Oficinas de Tênis</title>
+    <title>Financeiro - Detalhes - Oficinas de Tênis</title>
     
     <style>
         body {
@@ -16,7 +16,7 @@
             color: #333;
         }
         .container {
-            max-width: 1200px;
+            max-width: 95%;
             margin: auto;
             background: white;
             padding: 20px;
@@ -24,46 +24,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Estilos da Tabela de Resumo */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #0066cc;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        input[type='number'] {
-            width: 110px;
-            text-align: right;
-            padding: 5px;
-            box-sizing: border-box; 
-        }
-        .grafico-barra {
-            height: 20px;
-            background-color: #28a745;
-            text-align: right;
-            color: white;
-            padding-right: 5px;
-            border-radius: 5px;
-            width: 0%; 
-            min-width: 25px; 
-            box-sizing: border-box;
-            transition: width 0.3s ease-in-out;
-            font-size: 0.9em;
-            line-height: 20px;
-        }
-
-        /* Estilos do Menu de Navegação */
+        /* Estilos do Menu de Navegação Principal */
         .nav-menu {
             overflow: hidden;
             border-bottom: 2px solid #0066cc;
@@ -80,14 +41,47 @@
             border-radius: 5px 5px 0 0;
             transition: background-color 0.3s;
             color: #333;
-            text-decoration: none; /* Remover sublinhado do link */
+            text-decoration: none;
         }
         .nav-link:hover {
             background-color: #ddd;
         }
-        .nav-link.active {
+        .nav-link.active-page {
             background-color: #0066cc;
             color: white;
+        }
+
+        /* Estilos das Abas Internas */
+        .tabs {
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab-link {
+            background-color: #f9f9f9;
+            float: left;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            outline: none;
+            cursor: pointer;
+            padding: 12px 14px;
+            font-size: 16px;
+            border-radius: 5px 5px 0 0;
+            margin-left: 5px;
+        }
+        .tab-link:hover {
+            background-color: #eaeaea;
+        }
+        .tab-link.active-tab {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+            position: relative;
+            top: 1px;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+            padding: 10px 0;
         }
 
         /* Estilo do Botão Salvar PDF */
@@ -107,6 +101,109 @@
         }
         .print-button-container button:hover {
             background-color: #a92a26;
+        }
+
+
+        /* Estilos da Tabela Mensal (Aba 1) */
+        .monthly-table-wrapper {
+            overflow-x: auto;
+        }
+        .monthly-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .monthly-table th, .monthly-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .monthly-table th {
+            background-color: #0066cc;
+            color: white;
+            white-space: nowrap;
+        }
+        .monthly-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .monthly-table td:first-child,
+        .monthly-table th:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #f9f9f9;
+            z-index: 1;
+            min-width: 250px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .monthly-table th:nth-child(2),
+        .monthly-table td:nth-child(2) {
+            position: sticky;
+            left: 250px;
+            background-color: #f9f9f9;
+            z-index: 1;
+            min-width: 160px;
+        }
+        
+        .orcado-mes span {
+            font-size: 0.9em;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type='number'] {
+            width: 110px;
+            text-align: right;
+            padding: 5px;
+            box-sizing: border-box; 
+        }
+
+        /* Estilos da Tabela de Itens (Aba 2) */
+        .tabela-itens-individuais {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .tabela-itens-individuais th, .tabela-itens-individuais td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .tabela-itens-individuais th {
+            background-color: #0066cc;
+            color: white;
+        }
+        .tabela-itens-individuais tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .tabela-itens-individuais .acao-group {
+            font-weight: bold;
+            text-align: left;
+            background-color: #e9e9e9;
+        }
+        .tabela-itens-individuais .item-name {
+            text-align: left;
+            padding-left: 20px;
+            white-space: normal;
+        }
+
+        /* Barra de Gráfico */
+        .grafico-barra {
+            height: 20px;
+            background-color: #28a745;
+            text-align: right;
+            color: white;
+            padding-right: 5px;
+            border-radius: 5px;
+            width: 0%; 
+            min-width: 25px; 
+            box-sizing: border-box;
+            transition: width 0.3s ease-in-out;
+            font-size: 0.9em;
+            line-height: 20px;
         }
 
         /* CSS DE IMPRESSÃO */
@@ -131,14 +228,31 @@
                 page-break-after: avoid;
             }
             
+            .monthly-table-wrapper {
+                overflow-x: visible;
+            }
+            .monthly-table td:first-child,
+            .monthly-table th:first-child,
+            .monthly-table th:nth-child(2),
+            .monthly-table td:nth-child(2) {
+                position: static; /* Remove o 'sticky' */
+            }
+
+            .tabela-itens-individuais {
+                width: 100%;
+                font-size: 0.9em;
+            }
+            
+            /* Formata os inputs para parecerem texto */
             input[type='number'] {
                 border: none;
                 background: transparent;
                 color: #000;
                 padding: 0;
-                width: 100px;
+                width: 100px; 
+                text-align: right;
             }
-            
+
             .grafico-barra {
                 background: #eee !important; 
                 color: #000 !important; 
@@ -148,7 +262,7 @@
                 color-adjust: exact;
             }
 
-            tr {
+            tr, .acao-group {
                 page-break-inside: avoid;
             }
         }
@@ -158,6 +272,7 @@
 <body>
 
     <div class="container">
+        
         <div class="print-button-container no-print">
             <button onclick="window.print()">Salvar PDF</button>
         </div>
@@ -165,103 +280,535 @@
         <h1>Controle Financeiro - Oficinas Educacionais de Tênis</h1>
         
         <div class="nav-menu no-print">
-            <a href="financeiro.html" class="nav-link active">Resumo Orçamentário</a>
-            <a href="itens.html" class="nav-link">Controle Detalhado</a>
+            <a href="financeiro.html" class="nav-link">Resumo Orçamentário</a>
+            <a href="itens.html" class="nav-link active-page">Controle Detalhado</a>
         </div>
-        
-        <div>
-            <h2>Resumo Orçamentário (Total)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">Ação</th>
-                        <th>Valor Orçado (R$)</th>
-                        <th>Executado (R$)</th>
-                        <th>Saldo (R$)</th>
-                        <th>% Executado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: left;">Material de Consumo / Esportivo</td>
-                        <td class="orcado" data-valor="367075.00">R$ 367.075,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Uniformes</td>
-                        <td class="orcado" data-valor="121494.60">R$ 121.494,60</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Material Permanente / Equipamento</td>
-                        <td class="orcado" data-valor="8052.96">R$ 8.052,96</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Recursos Humanos</td>
-                        <td class="orcado" data-valor="158400.00">R$ 158.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Encargos Trabalhistas</td>
-                        <td class="orcado" data-valor="107712.00">R$ 107.712,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Hospedagem / Alimentação</td>
-                        <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Transporte / Locomoção</td>
-                        <td class="orcado" data-valor="100000.00">R$ 100.000,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Locação de Espaços</td>
-                        <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Serviços Operacionais</td>
-                        <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Serviços de Terceiros</td>
-                        <td class="orcado" data-valor="146400.00">R$ 146.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Divulgação / Promoção</td>
-                        <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
-                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
-                        <td class="saldo"></td>
-                        <td><div class="grafico-barra"></div></td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="tabs no-print">
+            <button class="tab-link active-tab" onclick="openTab(event, 'mensal-acao')">Controle Mensal por Ação</button>
+            <button class="tab-link" onclick="openTab(event, 'item-individual')">Controle por Item Individual</button>
         </div>
+
+        <div id="mensal-acao" class="tab-content" style="display:block;">
+            <h2>Controle Mensal por Ação (Novembro/2025 - Outubro/2026)</h2>
+            <div class="monthly-table-wrapper">
+                <table class="monthly-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Total Orçado</th>
+                            <th>Nov/2025 (Mês 1)</th>
+                            <th>Dez/2025 (Mês 2)</th>
+                            <th>Jan/2026 (Mês 3)</th>
+                            <th>Fev/2026 (Mês 4)</th>
+                            <th>Mar/2026 (Mês 5)</th>
+                            <th>Abr/2026 (Mês 6)</th>
+                            <th>Mai/2026 (Mês 7)</th>
+                            <th>Jun/2026 (Mês 8)</th>
+                            <th>Jul/2026 (Mês 9)</th>
+                            <th>Ago/2026 (Mês 10)</th>
+                            <th>Set/2026 (Mês 11)</th>
+                            <th>Out/2026 (Mês 12)</th>
+                            <th>Total Executado</th>
+                            <th>Saldo</th>
+                            <th>% Executado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="367075.00">Material de Consumo / Esportivo</td>
+                            <td>R$ 367.075,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 367.075,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="121494.60">Uniformes</td>
+                            <td>R$ 121.494,60</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 121.494,60</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="8052.96">Material Permanente / Equipamento</td>
+                            <td>R$ 8.052,96</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 8.052,96</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="158400.00">Recursos Humanos</td>
+                            <td>R$ 158.400,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 13.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="107712.00">Encargos Trabalhistas</td>
+                            <td>R$ 107.712,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 41.712,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 6.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="26100.00">Hospedagem / Alimentação</td>
+                            <td>R$ 26.100,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 2.610,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="100000.00">Transporte / Locomoção</td>
+                            <td>R$ 100.000,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 10.000,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="143600.04">Locação de Espaços</td>
+                            <td>R$ 143.600,04</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 11.966,67</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="128000.00">Serviços Operacionais</td>
+                            <td>R$ 128.000,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.800,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="146400.00">Serviços de Terceiros</td>
+                            <td>R$ 146.400,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 12.200,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                        <tr class="item-row-monthly">
+                            <td class="total-orcado" data-valor-total="20400.00">Divulgação / Promoção</td>
+                            <td>R$ 20.400,00</td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 20.400,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><div class="orcado-mes"><span>Orçado: R$ 0,00</span><input type="number" class="executado-mes" value="0" oninput="atualizarTotaisAcao(this)"></div></td>
+                            <td><strong class="total-executado-item"></strong></td>
+                            <td><strong class="saldo-item"></strong></td>
+                            <td style="min-width: 120px;"><div class="grafico-barra"></div></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="item-individual" class="tab-content">
+            <h2>Controle por Item Individual (Total Orçado)</h2>
+            <div class="monthly-table-wrapper">
+                <table class="tabela-itens-individuais">
+                    <thead>
+                        <tr>
+                            <th>Ação</th>
+                            <th>Item Individual</th>
+                            <th>Quantidade</th>
+                            <th>Valor Unitário (R$)</th>
+                            <th>Valor Orçado (R$)</th>
+                            <th>Executado (R$)</th>
+                            <th>Saldo (R$)</th>
+                            <th>% Executado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="4">Material de Consumo / Esportivo</td>
+                            <td class="item-name">Raquete de tênis para adultos</td>
+                            <td>500</td>
+                            <td>R$ 275,40</td>
+                            <td class="orcado" data-valor="137700.00">R$ 137.700,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Bola de Tênis Tubo com 3 bolas</td>
+                            <td>1000</td>
+                            <td>R$ 119,70</td>
+                            <td class="orcado" data-valor="119700.00">R$ 119.700,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Rede de Tênis</td>
+                            <td>100</td>
+                            <td>R$ 546,75</td>
+                            <td class="orcado" data-valor="54675.00">R$ 54.675,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Separador ou Aparador de Bola</td>
+                            <td>1000</td>
+                            <td>R$ 55,00</td>
+                            <td class="orcado" data-valor="55000.00">R$ 55.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="2">Uniformes</td>
+                            <td class="item-name">Camisa com manga Dry-Fit</td>
+                            <td>2235</td>
+                            <td>R$ 36,13</td>
+                            <td class="orcado" data-valor="80750.55">R$ 80.750,55</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Short com cordão interno</td>
+                            <td>2235</td>
+                            <td>R$ 18,23</td>
+                            <td class="orcado" data-valor="40744.05">R$ 40.744,05</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="2">Material Permanente / Equipamento</td>
+                            <td class="item-name">Caixas acústicas 300w/70v</td>
+                            <td>2</td>
+                            <td>R$ 1.791,13</td>
+                            <td class="orcado" data-valor="3582.26">R$ 3.582,26</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Smart TV 55" Polegadas</td>
+                            <td>1</td>
+                            <td>R$ 4.470,70</td>
+                            <td class="orcado" data-valor="4470.70">R$ 4.470,70</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="3">Recursos Humanos</td>
+                            <td class="item-name">Supervisor de Esportes I</td>
+                            <td>1</td>
+                            <td>R$ 3.500,00</td>
+                            <td class="orcado" data-valor="42000.00">R$ 42.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Coordenador Técnico</td>
+                            <td>1</td>
+                            <td>R$ 4.500,00</td>
+                            <td class="orcado" data-valor="54000.00">R$ 54.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Professor 1</td>
+                            <td>2</td>
+                            <td>R$ 2.600,00</td>
+                            <td class="orcado" data-valor="62400.00">R$ 62.400,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="3">Encargos Trabalhistas</td>
+                            <td class="item-name">Encargos trabalhistas Supervisor</td>
+                            <td>1</td>
+                            <td>R$ 2.380,00</td>
+                            <td class="orcado" data-valor="28560.00">R$ 28.560,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Encargos trabalhistas coordenador Técnico</td>
+                            <td>1</td>
+                            <td>R$ 3.060,00</td>
+                            <td class="orcado" data-valor="36720.00">R$ 36.720,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Encargos trabalhistas Professor 1</td>
+                            <td>2</td>
+                            <td>R$ 1.768,00</td>
+                            <td class="orcado" data-valor="42432.00">R$ 42.432,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="1">Hospedagem/Alimentação</td>
+                            <td class="item-name">kit lanche</td>
+                            <td>200</td>
+                            <td>R$ 13,05</td>
+                            <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="2">Transporte/Locomoção</td>
+                            <td class="item-name">Aluguel de Van executiva</td>
+                            <td>1</td>
+                            <td>R$ 4.000,00</td>
+                            <td class="orcado" data-valor="40000.00">R$ 40.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Aluguel de caminhão</td>
+                            <td>1</td>
+                            <td>R$ 6.000,00</td>
+                            <td class="orcado" data-valor="60000.00">R$ 60.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="1">Locação de Espaços</td>
+                            <td class="item-name">Aluguel de galpão</td>
+                            <td>1</td>
+                            <td>R$ 11.966,67</td>
+                            <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="1">Serviços Operacionais</td>
+                            <td class="item-name">Staff PJ - Apoio</td>
+                            <td>1</td>
+                            <td>R$ 12.800,00</td>
+                            <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="5">Serviços de Terceiros</td>
+                            <td class="item-name">Serviços Administrativos</td>
+                            <td>1</td>
+                            <td>R$ 3.000,00</td>
+                            <td class="orcado" data-valor="36000.00">R$ 36.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Serviço de contabilidade</td>
+                            <td>1</td>
+                            <td>R$ 2.000,00</td>
+                            <td class="orcado" data-valor="24000.00">R$ 24.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Empresa especializada em prestação de contas</td>
+                            <td>1</td>
+                            <td>R$ 3.200,00</td>
+                            <td class="orcado" data-valor="38400.00">R$ 38.400,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Serviço de Assessoria de Imprensa</td>
+                            <td>1</td>
+                            <td>R$ 2.000,00</td>
+                            <td class="orcado" data-valor="24000.00">R$ 24.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        <tr class="item-row-individual">
+                            <td class="item-name">Serviço de comunicação e mídias sociais</td>
+                            <td>1</td>
+                            <td>R$ 2.000,00</td>
+                            <td class="orcado" data-valor="24000.00">R$ 24.000,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+                        
+                        <tr class="item-row-individual">
+                            <td class="acao-group" rowspan="1">Divulgação / Promoção</td>
+                            <td class="item-name">Backdrop, em lona</td>
+                            <td>10</td>
+                            <td>R$ 2.040,00</td>
+                            <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
+                            <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoItemIndividual(this)"></td>
+                            <td class="saldo"></td>
+                            <td><div class="grafico-barra"></div></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -274,33 +821,104 @@
         }
 
         /**
-         * Atualiza os cálculos da tabela de RESUMO.
+         * Controla a exibição das abas internas.
          */
-        function atualizarExecucaoResumo() {
-            const linhas = document.querySelectorAll('#resumo tbody tr, .container tbody tr'); 
-            linhas.forEach(linha => {
-                const orcadoEl = linha.querySelector('.orcado');
-                if (!orcadoEl) return; 
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active-tab";
+        }
 
-                const orcado = parseFloat(orcadoEl.dataset.valor);
-                const executadoInput = linha.querySelector('.executado');
-                const executado = parseFloat(executadoInput.value) || 0;
-                const saldo = orcado - executado;
-                
-                linha.querySelector('.saldo').textContent = formatCurrency(saldo);
-                
-                const percentual = (orcado > 0) ? (executado / orcado) * 100 : 0;
-                
-                const barra = linha.querySelector('.grafico-barra');
-                barra.style.width = percentual.toFixed(1) + '%';
-                barra.textContent = percentual.toFixed(1) + '%';
+
+        /**
+         * Atualiza os totais de uma linha na tabela MENSAL POR AÇÃO (Aba 1).
+         */
+        function atualizarTotaisAcao(inputElement) {
+            const linha = inputElement.closest('tr.item-row-monthly');
+            if (!linha) return;
+
+            const totalOrcadoElement = linha.querySelector('.total-orcado');
+            const totalOrcado = parseFloat(totalOrcadoElement.dataset.valorTotal) || 0;
+            
+            let totalExecutado = 0;
+            const inputsMensais = linha.querySelectorAll('.executado-mes');
+            inputsMensais.forEach(input => {
+                totalExecutado += parseFloat(input.value) || 0;
+            });
+            
+            const saldo = totalOrcado - totalExecutado;
+            const percentual = (totalOrcado > 0) ? (totalExecutado / totalOrcado) * 100 : 0;
+            
+            linha.querySelector('.total-executado-item').textContent = formatCurrency(totalExecutado);
+            linha.querySelector('.saldo-item').textContent = formatCurrency(saldo);
+            
+            const barra = linha.querySelector('.grafico-barra');
+            barra.style.width = percentual.toFixed(1) + '%';
+            barra.textContent = percentual.toFixed(1) + '%';
+        }
+
+        /**
+         * (AUDITADA E CORRIGIDA)
+         * Atualiza os cálculos da tabela de ITEM INDIVIDUAL (Aba 2).
+         * @param {HTMLElement} inputElement O input de executado que foi alterado.
+         */
+        function atualizarExecucaoItemIndividual(inputElement) {
+            const linha = inputElement.closest('tr.item-row-individual');
+            if (!linha) return;
+
+            const orcadoEl = linha.querySelector('.orcado');
+            const orcado = parseFloat(orcadoEl.dataset.valor);
+            
+            const executadoInput = linha.querySelector('.executado');
+            const executado = parseFloat(executadoInput.value) || 0;
+            
+            const saldo = orcado - executado;
+            
+            linha.querySelector('.saldo').textContent = formatCurrency(saldo);
+            
+            // ### BUG CORRIGIDO ###
+            // A variável correta é 'orcado', que foi definida acima.
+            const percentual = (orcado > 0) ? (executado / orcado) * 100 : 0;
+            
+            const barra = linha.querySelector('.grafico-barra');
+            barra.style.width = percentual.toFixed(1) + '%';
+            barra.textContent = percentual.toFixed(1) + '%';
+        }
+
+
+        /**
+         * Função principal que inicializa todos os cálculos da página.
+         */
+        function inicializarPagina() {
+            // Calcula todas as linhas da Aba 1 (Mensal por Ação)
+            const linhasAcao = document.querySelectorAll('.item-row-monthly');
+            linhasAcao.forEach(linha => {
+                const primeiroInput = linha.querySelector('.executado-mes');
+                if (primeiroInput) {
+                    atualizarTotaisAcao(primeiroInput);
+                }
+            });
+
+            // Calcula todas as linhas da Aba 2 (Item Individual)
+            const linhasItem = document.querySelectorAll('.item-row-individual');
+            linhasItem.forEach(linha => {
+                const inputExecutado = linha.querySelector('.executado');
+                if (inputExecutado) {
+                    atualizarExecucaoItemIndividual(inputExecutado);
+                }
             });
         }
 
-        // Chama a função quando a página terminar de carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            atualizarExecucaoResumo();
-        });
+        // Chama a função de inicialização quando a página terminar de carregar
+        document.addEventListener('DOMContentLoaded', inicializarPagina);
     </script>
 
 </body>
