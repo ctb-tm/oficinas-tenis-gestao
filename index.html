@@ -3,39 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relatório Técnico Mensal – Oficinas de Tênis Salvador</title>
+  <title>Relatório Técnico Mensal – Oficinas de Tênis</title> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-
 <body class="bg-gray-100 text-gray-800">
-
-  <!-- ===== MENU SUPERIOR ===== -->
-  <nav class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-      <h1 class="text-lg font-semibold">CTB – Relatórios</h1>
-      <div class="space-x-3">
-        <a href="index.html" class="px-3 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition">Início</a>
-        <a href="financeiro.html" class="px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 transition">Financeiro</a>
-      </div>
-    </div>
-  </nav>
-  <!-- ===== FIM MENU ===== -->
-
-  <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-8 my-10">
-    <h1 class="text-3xl font-bold text-center mb-6">
-      Relatório Técnico Mensal – Oficinas Educacionais de Tênis
-    </h1>
+  <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-8 my-10">
+    <h1 class="text-3xl font-bold text-center mb-6">Relatório Técnico Mensal – Oficinas Educacionais de Tênis</h1>
     <p class="text-center text-sm mb-8">
-      Período: 01/11/2025 a 31/10/2026<br>
-      Proponente: Clube dos Tenistas da Bahia | CNPJ: 23.146.328/0001-16
+      Período: 01/10/2025 a 30/10/2025<br> 
+      Proponente: <strong>Clube dos Tenistas da Bahia</strong> | CNPJ: 23.146.328/0001-16
     </p>
 
-    <!-- 1. Execução Física -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">1. Execução Física</h2>
+    <section class="mb-10" id="secFisica">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-semibold">1. Execução Física</h2>
+        <button onclick="gerarPDF('secFisica', 'Execução Física')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">📄 Salvar PDF</button>
+      </div>
       <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
+        <thead class="bg-gray-200 text-gray-700">
           <tr>
             <th class="p-2 border">Núcleo</th>
             <th class="p-2 border">Atividades Realizadas</th>
@@ -45,14 +33,22 @@
           </tr>
         </thead>
         <tbody id="tabelaExecucao"></tbody>
+        <tfoot class="bg-gray-50">
+          <tr>
+            <td colspan="2" class="text-right p-2 font-semibold border">Média de Execução:</td>
+            <td colspan="3" class="p-2 border text-center font-semibold" id="mediaFisica">0%</td>
+          </tr>
+        </tfoot>
       </table>
     </section>
 
-    <!-- 2. Execução Financeira -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">2. Execução Financeira</h2>
+    <section class="mb-10" id="secFinanceira">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-semibold">2. Execução Financeira</h2>
+        <button onclick="gerarPDF('secFinanceira', 'Execução Financeira')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">📄 Salvar PDF</button>
+      </div>
       <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
+        <thead class="bg-gray-200 text-gray-700">
           <tr>
             <th class="p-2 border">Categoria</th>
             <th class="p-2 border">Orçado (R$)</th>
@@ -62,41 +58,202 @@
           </tr>
         </thead>
         <tbody id="tabelaFinanceira"></tbody>
+        <tfoot class="bg-gray-50 font-semibold">
+          <tr>
+            <td class="p-2 border text-right">Totais:</td>
+            <td id="totalOrcado" class="border p-2 text-center">R$ 0,00</td>
+            <td id="totalExecutado" class="border p-2 text-center">R$ 0,00</td>
+            <td id="totalSaldo" class="border p-2 text-center">R$ 0,00</td>
+            <td id="mediaFinanceira" class="border p-2 text-center">0%</td>
+          </tr>
+        </tfoot>
       </table>
     </section>
 
-    <!-- 3. Checklist Documental -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">3. Checklist Documental</h2>
-      <div id="checklist" class="grid grid-cols-2 gap-2 text-sm"></div>
+    <section class="mb-10" id="secDocs">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-semibold">3. Checklist Documental e Observações</h2>
+        <button onclick="gerarPDF('secDocs', 'Checklist e Observações')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded text-sm">📄 Salvar PDF</button>
+      </div>
+      <div>
+        <h3 class="text-lg font-medium mb-2">Checklist</h3>
+        <div id="checklist" class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm mb-6"></div>
+        <h3 class="text-lg font-medium mb-2">Observações dos Profissionais</h3>
+        <div id="observacoes"></div>
+      </div>
     </section>
 
-    <!-- 4. Observações -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">4. Observações dos Profissionais</h2>
-      <div id="observacoes"></div>
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold mb-3">4. Gráfico de Execução Física x Financeira</h2>
+      <canvas id="grafico" height="120"></canvas>
     </section>
 
-    <!-- 5. Gráfico -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">5. Gráfico Execução Física x Financeira</h2>
-      <canvas id="grafico"></canvas>
-    </section>
-
-    <!-- 6. Assinaturas -->
-    <section class="mt-10">
-      <h2 class="text-2xl font-semibold mb-3">6. Assinaturas</h2>
+    <section>
+      <h2 class="text-2xl font-semibold mb-3">5. Assinaturas</h2>
       <div class="grid grid-cols-2 gap-6">
-        <div>
-          <p>Coordenador Técnico – Paulo Santos Carneiro</p>
-          <div class="border-t border-gray-600 mt-6"></div>
-        </div>
-        <div>
-          <p>Assistente Administrativo – ____________________</p>
-          <div class="border-t border-gray-600 mt-6"></div>
-        </div>
+        <div><p>Coordenador Técnico – <strong>Paulo Santos Carneiro</strong></p><div class="border-t border-gray-600 mt-6"></div></div>
+        <div><p>Supervisor de Esportes</p><div class="border-t border-gray-600 mt-6"></div></div>
+        <div><p>Professor 1</p><div class="border-t border-gray-600 mt-6"></div></div>
+        <div><p>Professor 2</p><div class="border-t border-gray-600 mt-6"></div></div>
+        <div class="col-span-2 text-center"><p>Presidente – Clube dos Tenistas da Bahia</p><div class="border-t border-gray-600 mt-6 w-1/2 mx-auto"></div></div>
       </div>
     </section>
   </div>
+
+  <script>
+    // --- Criação de tabelas e dados ---
+    const tabelaExecucao = document.getElementById('tabelaExecucao');
+    for (let i = 1; i <= 10; i++) {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class='border p-2 text-center font-medium'>Núcleo ${i}</td>
+        <td class='border p-2'>Oficinas de tênis, capacitação e acompanhamento</td>
+        <td class='border p-2 text-center'>100%</td>
+        <td class='border p-2 text-center'><input type='number' min='0' max='100' value='0' class='execFis w-20 border rounded text-center focus:ring focus:ring-blue-200'></td>
+        <td class='border p-2'><input type='text' placeholder='Observações...' class='w-full border rounded p-1 focus:ring focus:ring-blue-100'></td>`;
+      tabelaExecucao.appendChild(row);
+    }
+
+    const categorias = [
+      'Materiais esportivos','Uniformes','Equipamentos permanentes','Recursos humanos','Encargos trabalhistas',
+      'Alimentação','Transporte','Locação de espaços','Serviços operacionais','Serviços de terceiros','Divulgação e promoção'
+    ];
+    const tabelaFinanceira = document.getElementById('tabelaFinanceira');
+    categorias.forEach(cat => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class='border p-2'>${cat}</td>
+        <td class='border p-2'><input type='number' step='0.01' class='orcado w-28 border rounded text-center' placeholder='0.00'></td>
+        <td class='border p-2'><input type='number' step='0.01' class='executado w-28 border rounded text-center' placeholder='0.00'></td>
+        <td class='border p-2 saldo text-center'>R$ 0,00</td>
+        <td class='border p-2 perc text-center text-gray-600 font-medium'>0%</td>`;
+      tabelaFinanceira.appendChild(row);
+    });
+
+    // --- Checklist ---
+    const checklistItens = ['Notas fiscais originais','Comprovantes bancários','Relatórios fotográficos','Listas de presença','Contratos e folhas de pagamento','Execução física','Execução financeira','Mídias e divulgação'];
+    const checklist = document.getElementById('checklist');
+    checklistItens.forEach(item => {
+      const div = document.createElement('div');
+      div.innerHTML = `<label class="flex items-center space-x-2"><input type='checkbox' class='accent-blue-500'><span>${item}</span></label>`;
+      checklist.appendChild(div);
+    });
+
+    // --- Observações ---
+    const profissionais = ['Coordenador Técnico','Supervisor de Esportes','Professor 1','Professor 2'];
+    const obs = document.getElementById('observacoes');
+    profissionais.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'mb-4';
+      div.innerHTML = `<p class='font-medium mb-1'>${p}:</p><textarea class='w-full border rounded p-2 focus:ring focus:ring-blue-100' rows='2' placeholder='Digite observações...'></textarea>`;
+      obs.appendChild(div);
+    });
+
+    // --- Cálculos automáticos ---
+    function atualizarFinanceiro() {
+      let totalOrcado = 0, totalExec = 0;
+      document.querySelectorAll('#tabelaFinanceira tr').forEach(tr => {
+        const orcado = parseFloat(tr.querySelector('.orcado')?.value || 0);
+        const exec = parseFloat(tr.querySelector('.executado')?.value || 0);
+        const saldo = orcado - exec;
+        const perc = orcado > 0 ? ((exec / orcado) * 100).toFixed(1) : 0; // Uso de orcado > 0 para evitar divisão por zero
+        
+        tr.querySelector('.saldo').innerText = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const percElem = tr.querySelector('.perc');
+        percElem.innerText = perc + '%';
+        // Atualiza a cor de acordo com o percentual de execução
+        percElem.className = 'perc border p-2 text-center font-medium ' + (perc >= 90 ? 'text-green-600' : perc >= 50 ? 'text-yellow-600' : 'text-red-500');
+        
+        totalOrcado += orcado;
+        totalExec += exec;
+      });
+      
+      const totalSaldo = totalOrcado - totalExec;
+      const media = totalOrcado > 0 ? ((totalExec / totalOrcado) * 100).toFixed(1) : 0;
+
+      document.getElementById('totalOrcado').innerText = totalOrcado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('totalExecutado').innerText = totalExec.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('totalSaldo').innerText = totalSaldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('mediaFinanceira').innerText = media + '%';
+      
+      atualizarGrafico();
+    }
+
+    function atualizarFisica() {
+      const valores = Array.from(document.querySelectorAll('.execFis')).map(i => parseFloat(i.value || 0));
+      // Garante que só calcula se houver elementos e evita divisão por zero.
+      const media = valores.length > 0 ? (valores.reduce((a,b)=>a+b)/valores.length).toFixed(1) : 0; 
+      
+      document.getElementById('mediaFisica').innerText = media + '%';
+      
+      atualizarGrafico();
+    }
+
+    document.addEventListener('input', e => {
+      // Verifica se o evento de input pertence a uma das classes de cálculo
+      if (e.target.classList.contains('orcado') || e.target.classList.contains('executado')) atualizarFinanceiro();
+      if (e.target.classList.contains('execFis')) atualizarFisica();
+    });
+
+    // Inicialização dos cálculos para exibir 0%
+    atualizarFisica();
+    atualizarFinanceiro();
+
+    // --- Gráfico ---
+    const ctx = document.getElementById('grafico');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Execução Física', 'Execução Financeira'],
+        datasets: [{ label: 'Execução (%)', data: [0, 0], backgroundColor: ['#3b82f6', '#22c55e'] }]
+      },
+      options: { scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false } } }
+    });
+    
+    function atualizarGrafico() {
+      // CORREÇÃO: Lê o valor do texto do elemento e converte para float, usando 0 como fallback
+      const mediaFisica = parseFloat(document.getElementById('mediaFisica').innerText.replace('%', '')) || 0;
+      const mediaFinanceira = parseFloat(document.getElementById('mediaFinanceira').innerText.replace('%', '')) || 0;
+      
+      chart.data.datasets[0].data = [mediaFisica, mediaFinanceira];
+      chart.update();
+    }
+
+    // --- Geração de PDF por seção ---
+    async function gerarPDF(sectionId, titulo) {
+      const { jsPDF } = window.jspdf;
+      const section = document.getElementById(sectionId);
+      
+      // Ajuste para evitar que os inputs apareçam cortados ou incompletos
+      const canvas = await html2canvas(section, { 
+          scale: 2,
+          logging: false, // Opcional: desativa logs do html2canvas
+          useCORS: true 
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const imgWidth = pageWidth - 20; // 10mm de margem em cada lado
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const date = new Date().toLocaleDateString('pt-BR');
+
+      let y = 10;
+      pdf.setFontSize(14);
+      pdf.text('Relatório Técnico Mensal – Oficinas de Tênis', 10, y);
+      y += 6;
+      pdf.setFontSize(10);
+      pdf.text(`Seção: ${titulo}`, 10, y);
+      y += 6;
+      pdf.text(`Data de emissão: ${date}`, 10, y);
+      y += 4; // Espaço antes da imagem
+
+      // Se a imagem for muito longa, será dividida em páginas.
+      let position = y;
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+
+      pdf.save(`${titulo}.pdf`);
+    }
+  </script>
 </body>
 </html>
