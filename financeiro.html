@@ -1,0 +1,49 @@
+Financeiro - Oficinas Educacionais de Tênis body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; } h1, h2 { text-align: center; color: #333; } table { width: 100%; border-collapse: collapse; margin-bottom: 30px; } th, td { border: 1px solid #ccc; padding: 10px; text-align: center; } th { background-color: #0066cc; color: white; } tr:nth-child(even) { background-color: #f9f9f9; } input[type='number'] { width: 100px; text-align: right; } .grafico-barra { height: 20px; background-color: #28a745; text-align: right; color: white; padding-right: 5px; border-radius: 5px; } .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); } function atualizarExecucao() { const linhas = document.querySelectorAll('tbody tr'); linhas.forEach(linha => { const orcado = parseFloat(linha.querySelector('.orcado').dataset.valor); const executadoInput = linha.querySelector('.executado'); const executado = parseFloat(executadoInput.value) || 0; const saldo = orcado - executado; linha.querySelector('.saldo').textContent = saldo.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); const percentual = (executado / orcado) * 100; const barra = linha.querySelector('.grafico-barra'); barra.style.width = percentual + '%'; barra.textContent = percentual.toFixed(1) + '%'; }); } 
+
+Controle Financeiro - Oficinas Educacionais de Tênis
+
+Período: Novembro/2025 a Outubro/2026
+
+AçãoValor Orçado (R$)Executado (R$)Saldo (R$)% ExecutadoMaterial de Consumo / EsportivoR$367.075,00R$367.075,00
+
+0%
+
+UniformesR$121.494,60R$121.494,60
+
+0%
+
+Material Permanente / EquipamentoR$8.052,96R$8.052,96
+
+0%
+
+Recursos HumanosR$158.400,00R$158.400,00
+
+0%
+
+Encargos TrabalhistasR$107.712,00R$107.712,00
+
+0%
+
+Hospedagem / AlimentaçãoR$26.100,00R$26.100,00
+
+0%
+
+Transporte / LocomoçãoR$100.000,00R$100.000,00
+
+0%
+
+Locação de EspaçosR$143.600,04R$143.600,04
+
+0%
+
+Serviços OperacionaisR$128.000,00R$128.000,00
+
+0%
+
+Serviços de TerceirosR$146.400,00R$146.400,00
+
+0%
+
+Divulgação / PromoçãoR$20.400,00R$20.400,00
+
+0%
