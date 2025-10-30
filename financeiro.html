@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financeiro - Oficinas Educacionais de Tênis</title>
+    <title>Financeiro - Resumo - Oficinas de Tênis</title>
     
     <style>
         body {
@@ -11,53 +11,10 @@
             margin: 20px;
             background-color: #f4f4f9;
         }
-
         h1, h2 {
             text-align: center;
             color: #333;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #0066cc;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        input[type='number'] {
-            width: 100px;
-            text-align: right;
-            padding: 5px;
-            box-sizing: border-box; /* Garante que o padding não afete a largura */
-        }
-
-        .grafico-barra {
-            height: 20px;
-            background-color: #28a745;
-            text-align: right;
-            color: white;
-            padding-right: 5px;
-            border-radius: 5px;
-            width: 0%; /* Inicia a barra com 0% */
-            min-width: 20px; /* Garante que o texto seja visível mesmo com 0% */
-            box-sizing: border-box;
-            transition: width 0.3s ease-in-out; /* Efeito suave na barra */
-        }
-
         .container {
             max-width: 1200px;
             margin: auto;
@@ -66,138 +23,215 @@
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+
+        /* Estilos da Tabela de Resumo */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        input[type='number'] {
+            width: 110px;
+            text-align: right;
+            padding: 5px;
+            box-sizing: border-box; 
+        }
+        .grafico-barra {
+            height: 20px;
+            background-color: #28a745;
+            text-align: right;
+            color: white;
+            padding-right: 5px;
+            border-radius: 5px;
+            width: 0%; 
+            min-width: 25px; 
+            box-sizing: border-box;
+            transition: width 0.3s ease-in-out;
+            font-size: 0.9em;
+            line-height: 20px;
+        }
+
+        /* Estilos do Menu de Navegação */
+        .nav-menu {
+            overflow: hidden;
+            border-bottom: 2px solid #0066cc;
+            margin-bottom: 20px;
+        }
+        .nav-link {
+            background-color: #f1f1f1;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+            color: #333;
+            text-decoration: none; /* Remover sublinhado do link */
+        }
+        .nav-link:hover {
+            background-color: #ddd;
+        }
+        .nav-link.active {
+            background-color: #0066cc;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Controle Financeiro - Oficinas Educacionais de Tênis</h1>
-        <h2>Período: Novembro/2025 a Outubro/2026</h2>
+        
+        <div class="nav-menu">
+            <a href="financeiro.html" class="nav-link active">Resumo Orçamentário</a>
+            <a href="itens.html" class="nav-link">Controle Mensal por Item</a>
+        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Ação</th>
-                    <th>Valor Orçado (R$)</th>
-                    <th>Executado (R$)</th>
-                    <th>Saldo (R$)</th>
-                    <th>% Executado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="text-align: left;">Material de Consumo / Esportivo</td>
-                    <td class="orcado" data-valor="367075.00">R$ 367.075,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Uniformes</td>
-                    <td class="orcado" data-valor="121494.60">R$ 121.494,60</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Material Permanente / Equipamento</td>
-                    <td class="orcado" data-valor="8052.96">R$ 8.052,96</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Recursos Humanos</td>
-                    <td class="orcado" data-valor="158400.00">R$ 158.400,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Encargos Trabalhistas</td>
-                    <td class="orcado" data-valor="107712.00">R$ 107.712,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Hospedagem / Alimentação</td>
-                    <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Transporte / Locomoção</td>
-                    <td class="orcado" data-valor="100000.00">R$ 100.000,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Locação de Espaços</td>
-                    <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Serviços Operacionais</td>
-                    <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Serviços de Terceiros</td>
-                    <td class="orcado" data-valor="146400.00">R$ 146.400,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">Divulgação / Promoção</td>
-                    <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
-                    <td><input type="number" class="executado" value="0" oninput="atualizarExecucao()"></td>
-                    <td class="saldo"></td>
-                    <td><div class="grafico-barra"></div></td>
-                </tr>
-            </tbody>
-        </table>
+        <div>
+            <h2>Resumo Orçamentário (Total)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Ação</th>
+                        <th>Valor Orçado (R$)</th>
+                        <th>Executado (R$)</th>
+                        <th>Saldo (R$)</th>
+                        <th>% Executado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left;">Material de Consumo / Esportivo</td>
+                        <td class="orcado" data-valor="367075.00">R$ 367.075,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Uniformes</td>
+                        <td class="orcado" data-valor="121494.60">R$ 121.494,60</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Material Permanente / Equipamento</td>
+                        <td class="orcado" data-valor="8052.96">R$ 8.052,96</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Recursos Humanos</td>
+                        <td class="orcado" data-valor="158400.00">R$ 158.400,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Encargos Trabalhistas</td>
+                        <td class="orcado" data-valor="107712.00">R$ 107.712,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Hospedagem / Alimentação</td>
+                        <td class="orcado" data-valor="26100.00">R$ 26.100,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Transporte / Locomoção</td>
+                        <td class="orcado" data-valor="100000.00">R$ 100.000,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Locação de Espaços</td>
+                        <td class="orcado" data-valor="143600.04">R$ 143.600,04</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Serviços Operacionais</td>
+                        <td class="orcado" data-valor="128000.00">R$ 128.000,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Serviços de Terceiros</td>
+                        <td class="orcado" data-valor="146400.00">R$ 146.400,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Divulgação / Promoção</td>
+                        <td class="orcado" data-valor="20400.00">R$ 20.400,00</td>
+                        <td><input type="number" class="executado" value="0" oninput="atualizarExecucaoResumo()"></td>
+                        <td class="saldo"></td>
+                        <td><div class="grafico-barra"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        function atualizarExecucao() {
-            const linhas = document.querySelectorAll('tbody tr');
+        
+        /**
+         * Formata um número para o padrão de moeda BRL (R$).
+         */
+        function formatCurrency(value) {
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
 
+        /**
+         * Atualiza os cálculos da tabela de RESUMO.
+         */
+        function atualizarExecucaoResumo() {
+            const linhas = document.querySelectorAll('#resumo tbody tr, .container tbody tr'); // Suporta ambas as estruturas
             linhas.forEach(linha => {
-                // Pega o valor orçado (do data-valor) e converte para número
-                const orcado = parseFloat(linha.querySelector('.orcado').dataset.valor);
-                
-                // Pega o valor digitado no input
+                const orcadoEl = linha.querySelector('.orcado');
+                if (!orcadoEl) return; // Pula se não for uma linha de dados
+
+                const orcado = parseFloat(orcadoEl.dataset.valor);
                 const executadoInput = linha.querySelector('.executado');
                 const executado = parseFloat(executadoInput.value) || 0;
-                
-                // Calcula o saldo
                 const saldo = orcado - executado;
                 
-                // Atualiza a célula do saldo, formatando para R$
-                linha.querySelector('.saldo').textContent = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                linha.querySelector('.saldo').textContent = formatCurrency(saldo);
                 
-                // Calcula o percentual (com proteção contra divisão por zero)
                 const percentual = (orcado > 0) ? (executado / orcado) * 100 : 0;
                 
-                // Atualiza a barra de progresso
                 const barra = linha.querySelector('.grafico-barra');
-                barra.style.width = percentual + '%';
+                barra.style.width = percentual.toFixed(1) + '%';
                 barra.textContent = percentual.toFixed(1) + '%';
             });
         }
 
         // Chama a função quando a página terminar de carregar
-        // Isso garante que os saldos iniciais (com R$ 0,00 executado) sejam calculados.
         document.addEventListener('DOMContentLoaded', function() {
-            atualizarExecucao();
+            atualizarExecucaoResumo();
         });
     </script>
 
