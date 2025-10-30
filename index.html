@@ -11,6 +11,13 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
   <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-8 my-10">
+    
+    <div class="flex justify-end mb-4">
+        <a href="financeiro.html" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded text-sm font-semibold">
+            📊 Ir para Financeiro
+        </a>
+    </div>
+
     <h1 class="text-3xl font-bold text-center mb-6">Relatório Técnico Mensal – Oficinas Educacionais de Tênis</h1>
     <p class="text-center text-sm mb-8">
       Período: 01/10/2025 a 30/10/2025<br> 
@@ -79,7 +86,10 @@
         <h3 class="text-lg font-medium mb-2">Checklist</h3>
         <div id="checklist" class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm mb-6"></div>
         <h3 class="text-lg font-medium mb-2">Observações dos Profissionais</h3>
-        <div id="observacoes"></div>
+        
+        <div id="observacoes">
+            </div>
+
       </div>
     </section>
 
@@ -139,13 +149,25 @@
       checklist.appendChild(div);
     });
 
-    // --- Observações ---
-    const profissionais = ['Coordenador Técnico','Supervisor de Esportes','Professor 1','Professor 2'];
+    // --- Observações (ATUALIZADO com botões e IDs únicos) ---
+    const profissionais = [
+        { nome: 'Coordenador Técnico', id: 'obsCoord', pdfNome: 'Obs Coordenador' },
+        { nome: 'Supervisor de Esportes', id: 'obsSuper', pdfNome: 'Obs Supervisor' },
+        { nome: 'Professor 1', id: 'obsProf1', pdfNome: 'Obs Prof 1' },
+        { nome: 'Professor 2', id: 'obsProf2', pdfNome: 'Obs Prof 2' }
+    ];
     const obs = document.getElementById('observacoes');
+    
     profissionais.forEach(p => {
       const div = document.createElement('div');
-      div.className = 'mb-4';
-      div.innerHTML = `<p class='font-medium mb-1'>${p}:</p><textarea class='w-full border rounded p-2 focus:ring focus:ring-blue-100' rows='2' placeholder='Digite observações...'></textarea>`;
+      div.className = 'mb-4 border border-gray-200 p-3 rounded bg-white';
+      div.id = p.id; // Adiciona ID para o PDF
+      div.innerHTML = `
+        <div class="flex justify-between items-center mb-1">
+            <p class='font-medium'>${p.nome}:</p>
+            <button onclick="gerarPDF('${p.id}', '${p.pdfNome}')" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-xs">📄 Salvar PDF</button>
+        </div>
+        <textarea class='w-full border rounded p-2 focus:ring focus:ring-blue-100' rows='2' placeholder='Digite observações...'></textarea>`;
       obs.appendChild(div);
     });
 
@@ -156,12 +178,11 @@
         const orcado = parseFloat(tr.querySelector('.orcado')?.value || 0);
         const exec = parseFloat(tr.querySelector('.executado')?.value || 0);
         const saldo = orcado - exec;
-        const perc = orcado > 0 ? ((exec / orcado) * 100).toFixed(1) : 0; // Uso de orcado > 0 para evitar divisão por zero
+        const perc = orcado > 0 ? ((exec / orcado) * 100).toFixed(1) : 0; 
         
         tr.querySelector('.saldo').innerText = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         const percElem = tr.querySelector('.perc');
         percElem.innerText = perc + '%';
-        // Atualiza a cor de acordo com o percentual de execução
         percElem.className = 'perc border p-2 text-center font-medium ' + (perc >= 90 ? 'text-green-600' : perc >= 50 ? 'text-yellow-600' : 'text-red-500');
         
         totalOrcado += orcado;
@@ -181,7 +202,6 @@
 
     function atualizarFisica() {
       const valores = Array.from(document.querySelectorAll('.execFis')).map(i => parseFloat(i.value || 0));
-      // Garante que só calcula se houver elementos e evita divisão por zero.
       const media = valores.length > 0 ? (valores.reduce((a,b)=>a+b)/valores.length).toFixed(1) : 0; 
       
       document.getElementById('mediaFisica').innerText = media + '%';
@@ -190,12 +210,11 @@
     }
 
     document.addEventListener('input', e => {
-      // Verifica se o evento de input pertence a uma das classes de cálculo
       if (e.target.classList.contains('orcado') || e.target.classList.contains('executado')) atualizarFinanceiro();
       if (e.target.classList.contains('execFis')) atualizarFisica();
     });
 
-    // Inicialização dos cálculos para exibir 0%
+    // Inicialização dos cálculos
     atualizarFisica();
     atualizarFinanceiro();
 
@@ -211,7 +230,6 @@
     });
     
     function atualizarGrafico() {
-      // CORREÇÃO: Lê o valor do texto do elemento e converte para float, usando 0 como fallback
       const mediaFisica = parseFloat(document.getElementById('mediaFisica').innerText.replace('%', '')) || 0;
       const mediaFinanceira = parseFloat(document.getElementById('mediaFinanceira').innerText.replace('%', '')) || 0;
       
@@ -224,17 +242,17 @@
       const { jsPDF } = window.jspdf;
       const section = document.getElementById(sectionId);
       
-      // Ajuste para evitar que os inputs apareçam cortados ou incompletos
+      // Captura o conteúdo, com uma escala maior para melhor qualidade no PDF
       const canvas = await html2canvas(section, { 
           scale: 2,
-          logging: false, // Opcional: desativa logs do html2canvas
+          logging: false, 
           useCORS: true 
       });
       
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pageWidth = pdf.internal.pageSize.getWidth();
-      const imgWidth = pageWidth - 20; // 10mm de margem em cada lado
+      const imgWidth = pageWidth - 20; 
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       const date = new Date().toLocaleDateString('pt-BR');
 
@@ -246,11 +264,15 @@
       pdf.text(`Seção: ${titulo}`, 10, y);
       y += 6;
       pdf.text(`Data de emissão: ${date}`, 10, y);
-      y += 4; // Espaço antes da imagem
+      y += 4; 
 
-      // Se a imagem for muito longa, será dividida em páginas.
-      let position = y;
-      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      pdf.addImage(imgData, 'PNG', 10, y, imgWidth, imgHeight);
+
+      // Adiciona uma nota sobre o autor da observação se for uma seção de observação individual
+      if (sectionId.startsWith('obs')) {
+        y += imgHeight + 5;
+        pdf.text('Este PDF contém apenas o relatório de observação individual.', 10, y);
+      }
 
       pdf.save(`${titulo}.pdf`);
     }
